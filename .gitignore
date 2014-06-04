@@ -54,4 +54,5 @@ docs/_build/
 
 # Other
 *.db
+*.pyc
 
