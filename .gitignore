@@ -53,6 +53,5 @@ coverage.xml
 docs/_build/
 
 # Other
-*.db
 *.pyc
 
