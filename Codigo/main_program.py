@@ -4,6 +4,7 @@
 import sys
 import inventario
 from PySide import QtGui, QtCore
+import manejo_bd
 
 class Main(QtGui.QMainWindow):
 	
