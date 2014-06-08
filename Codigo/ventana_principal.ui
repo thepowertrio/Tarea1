@@ -54,17 +54,17 @@
         </item>
         <item>
          <property name="text">
+          <string>NIke</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>Apple</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Microsoft</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>NIke</string>
+          <string>Samsung</string>
          </property>
         </item>
         <item>
@@ -74,7 +74,7 @@
         </item>
         <item>
          <property name="text">
-          <string>Samsung</string>
+          <string>Microsoft</string>
          </property>
         </item>
        </widget>

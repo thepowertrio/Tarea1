@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ventana_principal.ui'
 #
-# Created: Sat Jun  7 18:55:42 2014
+# Created: Sun Jun  8 17:51:00 2014
 #      by: pyside-uic 0.2.13 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -68,11 +68,11 @@ class Ui_Ventana(object):
         self.label_marcas.setText(QtGui.QApplication.translate("Ventana", "Selecciona una marca :", None, QtGui.QApplication.UnicodeUTF8))
         #self.cbx_marcas.setCurrentText(QtGui.QApplication.translate("Ventana", "Todas", None, QtGui.QApplication.UnicodeUTF8))
         self.cbx_marcas.setItemText(0, QtGui.QApplication.translate("Ventana", "Todas", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbx_marcas.setItemText(1, QtGui.QApplication.translate("Ventana", "Apple", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbx_marcas.setItemText(2, QtGui.QApplication.translate("Ventana", "Microsoft", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbx_marcas.setItemText(3, QtGui.QApplication.translate("Ventana", "NIke", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbx_marcas.setItemText(1, QtGui.QApplication.translate("Ventana", "NIke", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbx_marcas.setItemText(2, QtGui.QApplication.translate("Ventana", "Apple", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbx_marcas.setItemText(3, QtGui.QApplication.translate("Ventana", "Samsung", None, QtGui.QApplication.UnicodeUTF8))
         self.cbx_marcas.setItemText(4, QtGui.QApplication.translate("Ventana", "Reebok", None, QtGui.QApplication.UnicodeUTF8))
-        self.cbx_marcas.setItemText(5, QtGui.QApplication.translate("Ventana", "Samsung", None, QtGui.QApplication.UnicodeUTF8))
+        self.cbx_marcas.setItemText(5, QtGui.QApplication.translate("Ventana", "Microsoft", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_nuevo.setText(QtGui.QApplication.translate("Ventana", "Nuevo producto", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_editar.setText(QtGui.QApplication.translate("Ventana", "Editar", None, QtGui.QApplication.UnicodeUTF8))
         self.btn_eliminar.setText(QtGui.QApplication.translate("Ventana", "Eliminar", None, QtGui.QApplication.UnicodeUTF8))

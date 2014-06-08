@@ -15,7 +15,12 @@ class Display(QtGui.QMainWindow):
         self.cargar_datos()
 
     def cargar_datos(self):
-        productos = manejo_bd.obtener_tabla_productos()
+        #productos = manejo_bd.obtener_tabla_productos()
+
+        if (self.ui.cbx_marcas.currentIndex()==0):
+            productos = manejo_bd.obtener_tabla_productos()
+        else:
+            productos = manejo_bd.obtener_productos_marca(self.ui.cbx_marcas.currentIndex())
 
         #self.model = QtGui.QStandardItemModel(len(productos), 10)
         self.model = QtGui.QStandardItemModel(len(productos)-1, 9)
@@ -99,3 +104,4 @@ class Display(QtGui.QMainWindow):
 
     def iniciar_botones(self):
         self.ui.btn_eliminar.clicked.connect(self.eliminar)
+        self.ui.cbx_marcas.activated[int].connect(self.cargar_datos)

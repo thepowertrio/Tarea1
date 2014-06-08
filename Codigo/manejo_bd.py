@@ -87,3 +87,17 @@ def editar_producto(cod,nom,atrib,desc,img,color,pb,pn,marca,id_prod):
     con.commit()
     con.close()
     return True
+
+def obtener_productos_marca(marca):
+    #devuelve la tabla productos según la marca ingresada
+    con = conectar()
+    c = con.cursor()
+    try:
+        query = """SELECT * FROM productos WHERE fk_id_marca = ?"""
+        resultado = c.execute(query,[marca])
+    except sqlite3.Error as e:
+        exito = False
+        print "Error:", e.args[0]
+    prod = resultado.fetchall()
+    con.close()
+    return prod
