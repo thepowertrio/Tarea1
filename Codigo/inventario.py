@@ -11,6 +11,7 @@ class Display(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self, parent)
         self.ui =  Ui_Ventana()
         self.ui.setupUi(self)
+        self.iniciar_botones()
         self.cargar_datos()
 
     def cargar_datos(self):
@@ -74,3 +75,27 @@ class Display(QtGui.QMainWindow):
         self.ui.tvw_producto.setColumnWidth(7, 100)
         self.ui.tvw_producto.setColumnWidth(8, 100)
         #self.ui.tvw_producto.setColumnWidth(9, 220)
+
+    def eliminar(self):
+        model = self.ui.tvw_producto.model()
+        index = self.ui.tvw_producto.currentIndex()
+        if index.row() == -1: #No se ha seleccionado una fila
+            self.errorMessageDialog = QtGui.QErrorMessage(self)
+            self.errorMessageDialog.showMessage("Debe seleccionar una fila")
+            return False
+        else:
+            nombre = model.index(index.row(), 2, QtCore.QModelIndex()).data()
+            if (manejo_bd.eliminar_producto(nombre)):
+                #self.cargar_datos()
+                msgBox = QtGui.QMessageBox()
+                msgBox.setText("EL registro fue eliminado.")
+                msgBox.exec_()
+                self.cargar_datos()
+                return True
+            else:
+                self.ui.errorMessageDialog = QtGui.QErrorMessage(self)
+                self.ui.errorMessageDialog.showMessage("Error al eliminar el registro")
+                return False
+
+    def iniciar_botones(self):
+        self.ui.btn_eliminar.clicked.connect(self.eliminar)

@@ -24,19 +24,21 @@ def obtener_tabla_productos():
     con.close()
     return prod
 
-def eliminar_producto(arg):
+def eliminar_producto(nom):
     #elimina un elemento de la tabla productos
+    exito = False
     con = conectar()
     c = con.cursor()
+    query = """DELETE FROM productos WHERE nombre = ?"""
     try:
-        query = """DELETE FROM productos WHERE nombre = ?"""
-        resultado = c.execute(query,[arg])
+        resultado = c.execute(query,[nom])
+        con.commit()
+        exito = True
     except sqlite3.Error as e:
         exito = False
         print "Error:", e.args[0]
-    con.commit()
     con.close()
-    return True
+    return exito
 
 def buscar_producto(arg):
     #devuelve la tabla productos completa con el nombre arg.

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ventana_principal.ui'
 #
-# Created: Thu Jun  5 15:03:01 2014
+# Created: Sat Jun  7 18:55:42 2014
 #      by: pyside-uic 0.2.13 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -39,6 +39,8 @@ class Ui_Ventana(object):
         self.horizontalLayout.addWidget(self.cbx_marcas)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.tvw_producto = QtGui.QTableView(self.verticalLayoutWidget)
+        self.tvw_producto.setEditTriggers(QtGui.QAbstractItemView.AnyKeyPressed|QtGui.QAbstractItemView.EditKeyPressed)
+        self.tvw_producto.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tvw_producto.setObjectName("tvw_producto")
         self.verticalLayout.addWidget(self.tvw_producto)
         self.horizontalLayoutWidget_2 = QtGui.QWidget(Ventana)
