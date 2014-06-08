@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>398</height>
+    <width>556</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,63 +18,107 @@
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>491</width>
-     <height>281</height>
+     <width>541</width>
+     <height>331</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="txt_producto">
         <property name="text">
-         <string>Qué producto está buscando</string>
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>¿Qué producto está buscando?</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_marcas">
         <property name="text">
          <string>Selecciona una marca :</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="cbx_marcas">
+        <property name="currentText">
+         <string>Todas</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Todas</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Apple</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Microsoft</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>NIke</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Reebok</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Samsung</string>
+         </property>
+        </item>
+       </widget>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QTableView" name="tableView"/>
+     <widget class="QTableView" name="tvw_producto">
+      <property name="editTriggers">
+       <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::EditKeyPressed</set>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>20</y>
+     <x>220</x>
+     <y>10</y>
      <width>326</width>
      <height>41</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="btn_nuevo">
       <property name="text">
        <string>Nuevo producto</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="btn_editar">
       <property name="text">
        <string>Editar</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="btn_eliminar">
       <property name="text">
        <string>Eliminar</string>
       </property>
