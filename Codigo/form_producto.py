@@ -17,7 +17,9 @@ class Display(QtGui.QDialog):
         self.iniciar_botones()
 
     def iniciar_botones(self):
-        #self.ui.btn_img.clicked.connect(self.cambiar_imagen)
+        """
+        Función que inicia las señales de los objetos
+        """
         self.ui.btn_guardar.clicked.connect(self.guardar)
         self.ui.btn_cancg.clicked.connect(self.cancelar)
 
@@ -25,6 +27,11 @@ class Display(QtGui.QDialog):
         self.reject()
 
     def guardar(self):
+        """
+        Función que guarda los cambios hechos en la tabla de productos. La forma
+        de guardar dependerá si el formulario se usó para editar o para agregar
+        un nuevo producto
+        """
         if(self.editado):
             manejo_bd.editar_producto(unicode(self.ui.txt_codigo.text()),
                                         unicode(self.ui.txt_nom_prod.text()),
@@ -50,6 +57,10 @@ class Display(QtGui.QDialog):
         self.reject()
 
     def editar(self, nombre):
+        """
+        Función que carga los datos de un producto en el formulario para poder
+        editarlos.
+        """
         self.editado = True
 
         datos = manejo_bd.datos_producto(nombre)

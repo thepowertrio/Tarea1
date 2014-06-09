@@ -17,6 +17,11 @@ class Display(QtGui.QMainWindow):
         self.cargar_datos("")
 
     def cargar_datos(self, text):
+        """
+        Función que se encarga de mostrar la tabla de productos en pantalla,
+        además de filtrar los contenidos de acuerdo al QComboBox de marcas
+        disponible.
+        """
         #productos = manejo_bd.obtener_tabla_productos()
 
         #if (self.ui.cbx_marcas.currentIndex()==0):
@@ -26,27 +31,21 @@ class Display(QtGui.QMainWindow):
 
         if (self.ui.cbx_marcas.currentIndex()==0):
             if(text == ""):
-                print "no hay texto productos"
                 productos = manejo_bd.obtener_tabla_productos()
             else:
-                print "hay texto productos"
                 productos = manejo_bd.buscar_producto(text)
         else:
             if(text == ""):
-                print "no hay texto marca"
                 productos = manejo_bd.obtener_productos_marca(self.ui.cbx_marcas.currentIndex())
             else:
-                print "hay texto marca"
                 productos = manejo_bd.buscar_productos_marca(self.ui.cbx_marcas.currentIndex(),text)
 
-        #self.model = QtGui.QStandardItemModel(len(productos), 10)
         self.model = QtGui.QStandardItemModel(len(productos)-1, 9)
         self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"ID"))
         self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Codigo"))
         self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Nombre"))
         self.model.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Atributos"))
         self.model.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Descripcion"))
-        #self.model.setHorizontalHeaderItem(5, QtGui.QStandardItem(u"Imagen"))
         self.model.setHorizontalHeaderItem(5, QtGui.QStandardItem(u"Color"))
         self.model.setHorizontalHeaderItem(6, QtGui.QStandardItem(u"Precio Bruto"))
         self.model.setHorizontalHeaderItem(7, QtGui.QStandardItem(u"Precio Neto"))
@@ -64,8 +63,6 @@ class Display(QtGui.QMainWindow):
             self.model.setData(index, row['atributos'])
             index = self.model.index(r, 4, QtCore.QModelIndex())
             self.model.setData(index, row['descripcion'])
-            #index = self.model.index(r, 5, QtCore.QModelIndex())
-            #self.model.setData(index, row['Imagen'])
             index = self.model.index(r, 5, QtCore.QModelIndex())
             self.model.setData(index, row['color'])
             index = self.model.index(r, 6, QtCore.QModelIndex())
@@ -73,7 +70,6 @@ class Display(QtGui.QMainWindow):
             index = self.model.index(r, 7, QtCore.QModelIndex())
             self.model.setData(index, row['precio_neto'])
             index = self.model.index(r, 8, QtCore.QModelIndex())
-            #self.model.setData(index, row['fk_id_marca'])
             if(row['fk_id_marca'] == 1):
                 self.model.setData(index, 'Nike')
             if(row['fk_id_marca'] == 2):
@@ -96,12 +92,15 @@ class Display(QtGui.QMainWindow):
         self.ui.tvw_producto.setColumnWidth(6, 100)
         self.ui.tvw_producto.setColumnWidth(7, 100)
         self.ui.tvw_producto.setColumnWidth(8, 100)
-        #self.ui.tvw_producto.setColumnWidth(9, 220)
 
     def eliminar_producto(self):
+        """
+        Función que elimina un producto de la tabla de productos. Para poder
+        eliminar una fila, es necesario haberla seleccionado primero.
+        """
         model = self.ui.tvw_producto.model()
         index = self.ui.tvw_producto.currentIndex()
-        if index.row() == -1: #No se ha seleccionado una fila
+        if index.row() == -1:
             self.errorMessageDialog = QtGui.QErrorMessage(self)
             self.errorMessageDialog.showMessage("Debe seleccionar una fila")
             return False
@@ -112,7 +111,7 @@ class Display(QtGui.QMainWindow):
                 msgBox = QtGui.QMessageBox()
                 msgBox.setText("EL registro fue eliminado.")
                 msgBox.exec_()
-                self.cargar_datos()
+                self.cargar_datos("")
                 return True
             else:
                 self.ui.errorMessageDialog = QtGui.QErrorMessage(self)
@@ -120,6 +119,12 @@ class Display(QtGui.QMainWindow):
                 return False
 
     def editar_producto(self):
+        """
+        Función que permite editar un producto de la tabla de productos. Para
+        poder editar un producto es necesario haber seleccionado una fila. Una
+        vez presionado el botón, se abrirá el formulario cargado con los datos
+        del producto
+        """
         model = self.ui.tvw_producto.model()
         index = self.ui.tvw_producto.currentIndex()
         if index.row() == -1: #No se ha seleccionado una fila
@@ -134,11 +139,19 @@ class Display(QtGui.QMainWindow):
             self.cargar_datos("")
 
     def agregar_producto(self):
+        """
+        Función que permite agregar un producto a la tabla de productos. Al
+        presionar el botón, se desplegará un formulario para indroducir la
+        información del nuevo producto.
+        """
         formulario = form_producto.Display(self)
         formulario.exec_()
         self.cargar_datos("")
 
     def iniciar_botones(self):
+        """
+        Función que se encarga de cargar todas las señales de los objetos.
+        """
         self.ui.btn_eliminar.clicked.connect(self.eliminar_producto)
         self.ui.btn_editar.clicked.connect(self.editar_producto)
         self.ui.cbx_marcas.activated[int].connect(self.cargar_datos)

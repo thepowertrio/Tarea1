@@ -5,14 +5,13 @@ import sqlite3
 from array import *
 
 def conectar():
-    #conecta base de datos
+    """conecta base de datos"""
     con = sqlite3.connect('bd_principal.db')
     con.row_factory = sqlite3.Row
     return con
 
 def obtener_tabla_productos():
-    #devuelve la tabla productos completa
-    con = conectar()
+    """devuelve la tabla productos completa"""
     c = con.cursor()
     try:
         query = """SELECT * FROM productos"""
@@ -25,7 +24,7 @@ def obtener_tabla_productos():
     return prod
 
 def eliminar_producto(nom):
-    #elimina un elemento de la tabla productos
+    """elimina un elemento de la tabla productos"""
     exito = False
     con = conectar()
     c = con.cursor()
@@ -41,7 +40,7 @@ def eliminar_producto(nom):
     return exito
 
 def buscar_producto(nom):
-    #devuelve la tabla productos completa con el nombre nom.
+    """devuelve la tabla productos completa con el nombre nom."""
     con = conectar()
     c = con.cursor()
     try:
@@ -55,7 +54,7 @@ def buscar_producto(nom):
     return prod
 
 def agregar_producto(cod,nom,atrib,desc,img,color,pb,pn,marca):
-    #Agrega una fila en la tabla productos con los valores entregados.
+    """Agrega una fila en la tabla productos con los valores entregados."""
     con = conectar()
     c = con.cursor()
     try:
@@ -73,7 +72,7 @@ def agregar_producto(cod,nom,atrib,desc,img,color,pb,pn,marca):
     return index
 
 def editar_producto(cod,nom,atrib,desc,img,color,pb,pn,marca,id_prod):
-    #Edita una fila en la tabla productos con los valores entregados.
+    """Edita una fila en la tabla productos con los valores entregados."""
     con = conectar()
     c = con.cursor()
     try:
@@ -90,7 +89,7 @@ def editar_producto(cod,nom,atrib,desc,img,color,pb,pn,marca,id_prod):
     return True
 
 def obtener_productos_marca(marca):
-    #devuelve la tabla productos según la marca ingresada
+    """devuelve la tabla productos según la marca ingresada"""
     con = conectar()
     c = con.cursor()
     try:
@@ -104,7 +103,7 @@ def obtener_productos_marca(marca):
     return prod
 
 def buscar_productos_marca(marca, nom):
-    #devuelve la tabla productos según la marca ingresada con el nombre nom
+    """devuelve la tabla productos según la marca ingresada con el nombre nom"""
     con = conectar()
     c = con.cursor()
     try:
@@ -119,15 +118,15 @@ def buscar_productos_marca(marca, nom):
     return prod
 
 def datos_producto(name):
-	#Obtiene la fila de nombre "name" en la tabla productos.
-	con = conectar()
-	c = con.cursor()
-	try:
-		query = """SELECT * FROM productos WHERE nombre=?"""
-		resultado = c.execute(query,[name])
-	except sqlite3.Error as e:
-		exito = False
-		print "Error:", e.args[0]
-	prod = resultado.fetchall()
-	con.close()
-	return prod
+    """Obtiene la fila de nombre "name" en la tabla productos."""
+    con = conectar()
+    c = con.cursor()
+    try:
+        query = """SELECT * FROM productos WHERE nombre=?"""
+        resultado = c.execute(query,[name])
+    except sqlite3.Error as e:
+        exito = False
+        print "Error:", e.args[0]
+    prod = resultado.fetchall()
+    con.close()
+    return prod
