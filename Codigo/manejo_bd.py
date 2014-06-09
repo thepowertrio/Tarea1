@@ -40,13 +40,13 @@ def eliminar_producto(nom):
     con.close()
     return exito
 
-def buscar_producto(arg):
-    #devuelve la tabla productos completa con el nombre arg.
+def buscar_producto(nom):
+    #devuelve la tabla productos completa con el nombre nom.
     con = conectar()
     c = con.cursor()
     try:
-        query = """SELECT * FROM procuctos WHERE nombre LIKE ?"""
-        resultado = c.execute(query,["%"+arg+"%"])
+        query = """SELECT * FROM productos WHERE nombre LIKE ?"""
+        resultado = c.execute(query,["%"+nom+"%"])
     except sqlite3.Error as e:
         exito = False
         print "Error:", e.args[0]
@@ -63,6 +63,7 @@ def agregar_producto(cod,nom,atrib,desc,img,color,pb,pn,marca):
             nombre,atributos,descripcion,imagen,color,precio_bruto,
             precio_neto,fk_id_marca) VALUES (?,?,?,?,?,?,?,?,?)"""
         resultado = c.execute(query,[cod,nom,atrib,desc,img,color,pb,pn,marca])
+        print "se agrego un producto"
     except sqlite3.Error as e:
         exito = False
         print "Error:", e.args[0]
@@ -78,7 +79,7 @@ def editar_producto(cod,nom,atrib,desc,img,color,pb,pn,marca,id_prod):
     try:
         query = """UPDATE productos SET codigo = ?, nombre = ?, atributos = ?,
             descripcion = ?, imagen = ?, color = ?, precio_bruto = ?,
-            precio_neto = ? WHERE id_producto = ?"""
+            precio_neto = ?, fk_id_marca = ? WHERE id_producto = ?"""
         resultado = c.execute(query,[cod,nom,atrib,desc,img,color,pb,pn,marca,id_prod])
     except sqlite3.Error as e:
         exito = False
@@ -101,3 +102,32 @@ def obtener_productos_marca(marca):
     prod = resultado.fetchall()
     con.close()
     return prod
+
+def buscar_productos_marca(marca, nom):
+    #devuelve la tabla productos según la marca ingresada con el nombre nom
+    con = conectar()
+    c = con.cursor()
+    try:
+        query = """SELECT * FROM productos WHERE fk_id_marca = ? AND nombre LIKE ?"""
+        nombre = "%"+nom+"%"
+        resultado = c.execute(query,[marca,nombre])
+    except sqlite3.Error as e:
+        exito = False
+        print "Error:", e.args[0]
+    prod = resultado.fetchall()
+    con.close()
+    return prod
+
+def datos_producto(name):
+	#Obtiene la fila de nombre "name" en la tabla productos.
+	con = conectar()
+	c = con.cursor()
+	try:
+		query = """SELECT * FROM productos WHERE nombre=?"""
+		resultado = c.execute(query,[name])
+	except sqlite3.Error as e:
+		exito = False
+		print "Error:", e.args[0]
+	prod = resultado.fetchall()
+	con.close()
+	return prod

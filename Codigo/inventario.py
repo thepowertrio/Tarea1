@@ -4,6 +4,7 @@
 from PySide import QtGui, QtCore
 from ventana_principal import Ui_Ventana
 import manejo_bd
+import form_producto
 
 class Display(QtGui.QMainWindow):
 
@@ -12,15 +13,31 @@ class Display(QtGui.QMainWindow):
         self.ui =  Ui_Ventana()
         self.ui.setupUi(self)
         self.iniciar_botones()
-        self.cargar_datos()
+        #self.cargar_datos()
+        self.cargar_datos("")
 
-    def cargar_datos(self):
+    def cargar_datos(self, text):
         #productos = manejo_bd.obtener_tabla_productos()
 
+        #if (self.ui.cbx_marcas.currentIndex()==0):
+        #    productos = manejo_bd.obtener_tabla_productos()
+        #else:
+        #    productos = manejo_bd.obtener_productos_marca(self.ui.cbx_marcas.currentIndex())
+
         if (self.ui.cbx_marcas.currentIndex()==0):
-            productos = manejo_bd.obtener_tabla_productos()
+            if(text == ""):
+                print "no hay texto productos"
+                productos = manejo_bd.obtener_tabla_productos()
+            else:
+                print "hay texto productos"
+                productos = manejo_bd.buscar_producto(text)
         else:
-            productos = manejo_bd.obtener_productos_marca(self.ui.cbx_marcas.currentIndex())
+            if(text == ""):
+                print "no hay texto marca"
+                productos = manejo_bd.obtener_productos_marca(self.ui.cbx_marcas.currentIndex())
+            else:
+                print "hay texto marca"
+                productos = manejo_bd.buscar_productos_marca(self.ui.cbx_marcas.currentIndex(),text)
 
         #self.model = QtGui.QStandardItemModel(len(productos), 10)
         self.model = QtGui.QStandardItemModel(len(productos)-1, 9)
@@ -81,7 +98,7 @@ class Display(QtGui.QMainWindow):
         self.ui.tvw_producto.setColumnWidth(8, 100)
         #self.ui.tvw_producto.setColumnWidth(9, 220)
 
-    def eliminar(self):
+    def eliminar_producto(self):
         model = self.ui.tvw_producto.model()
         index = self.ui.tvw_producto.currentIndex()
         if index.row() == -1: #No se ha seleccionado una fila
@@ -102,6 +119,28 @@ class Display(QtGui.QMainWindow):
                 self.ui.errorMessageDialog.showMessage("Error al eliminar el registro")
                 return False
 
+    def editar_producto(self):
+        model = self.ui.tvw_producto.model()
+        index = self.ui.tvw_producto.currentIndex()
+        if index.row() == -1: #No se ha seleccionado una fila
+            self.errorMessageDialog = QtGui.QErrorMessage(self)
+            self.errorMessageDialog.showMessage("Debe seleccionar una fila")
+            return False
+        else:
+            nombre = model.index(index.row(), 2, QtCore.QModelIndex()).data()
+            formulario = form_producto.Display(self)
+            formulario.editar(nombre)
+            formulario.exec_()
+            self.cargar_datos("")
+
+    def agregar_producto(self):
+        formulario = form_producto.Display(self)
+        formulario.exec_()
+        self.cargar_datos("")
+
     def iniciar_botones(self):
-        self.ui.btn_eliminar.clicked.connect(self.eliminar)
+        self.ui.btn_eliminar.clicked.connect(self.eliminar_producto)
+        self.ui.btn_editar.clicked.connect(self.editar_producto)
         self.ui.cbx_marcas.activated[int].connect(self.cargar_datos)
+        self.ui.txt_producto.textChanged[str].connect(self.cargar_datos)
+        self.ui.btn_nuevo.clicked.connect(self.agregar_producto)
