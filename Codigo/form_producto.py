@@ -52,8 +52,7 @@ class Display(QtGui.QDialog):
                                         unicode(self.ui.txt_color.text()),
                                         unicode(self.ui.txt_pb.text()),
                                         unicode(self.ui.txt_pn.text()),
-                                        unicode(self.ui.cbx_marca.currentIndex()+1),
-                                        self.id_producto)
+                                        unicode(self.ui.cbx_marca.currentIndex()+1))
         self.reject()
 
     def editar(self, nombre):

@@ -12,6 +12,7 @@ def conectar():
 
 def obtener_tabla_productos():
     """devuelve la tabla productos completa"""
+    con = conectar()
     c = con.cursor()
     try:
         query = """SELECT * FROM productos"""

@@ -40,7 +40,7 @@ class Display(QtGui.QMainWindow):
             else:
                 productos = manejo_bd.buscar_productos_marca(self.ui.cbx_marcas.currentIndex(),text)
 
-        self.model = QtGui.QStandardItemModel(len(productos)-1, 9)
+        self.model = QtGui.QStandardItemModel(len(productos), 9)
         self.model.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"ID"))
         self.model.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Codigo"))
         self.model.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Nombre"))
@@ -108,9 +108,9 @@ class Display(QtGui.QMainWindow):
             nombre = model.index(index.row(), 2, QtCore.QModelIndex()).data()
             if (manejo_bd.eliminar_producto(nombre)):
                 #self.cargar_datos()
-                msgBox = QtGui.QMessageBox()
-                msgBox.setText("EL registro fue eliminado.")
-                msgBox.exec_()
+                #msgBox = QtGui.QMessageBox()
+                #msgBox.setText("EL registro fue eliminado.")
+                #msgBox.exec_()
                 self.cargar_datos("")
                 return True
             else:
